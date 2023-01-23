@@ -17,13 +17,11 @@ public class User {
 
     private String username;
 
-    @OneToOne(mappedBy = "user_id")
-    private Rental rental;
+    @OneToMany(mappedBy = "user_id")
+    private List<Applications> applications = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user_id")
-    private Applications applications;
-
-
+    @OneToMany(mappedBy = "user_id")
+    private List<Rental> rentals = new ArrayList<>();
 
 
 }

@@ -17,7 +17,7 @@ public class Applications {
     @Column(name="ap_book_id")
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user_id;
 

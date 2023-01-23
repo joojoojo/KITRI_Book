@@ -19,13 +19,13 @@ public class Rental {
     @Column(name = "rental_id")
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user_id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "book_id")
-    private Book book_id;
+    private List<Book> book_id = new ArrayList<>();
 
 
     private LocalDateTime rental_date;

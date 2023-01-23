@@ -28,7 +28,7 @@ public class Book {
 
     private int booked_count;
 
-    @OneToOne(mappedBy = "book_id")
+    @OneToMany(mappedBy = "book_id")
     private Rental rental;
 
     @ManyToMany(mappedBy = "bookCategoriesList") // book_categories에 있는 manytomany 어노테이션과 연결
