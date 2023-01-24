@@ -28,11 +28,11 @@ public class Book {
 
     private int booked_count;
 
-    @OneToMany(mappedBy = "book_id")
+    @OneToMany(mappedBy = "book_id", cascade = CascadeType.ALL)
     private Rental rental;
 
-    @ManyToMany(mappedBy = "bookCategoriesList") // book_categories에 있는 manytomany 어노테이션과 연결
-    List<Book_Categories> bookCategoriesList = new ArrayList<>(); // book_id 별 카테고리 리스트 가져오기
+    @ManyToMany(mappedBy = "bookCategoriesList", cascade = CascadeType.ALL) // book_categories에 있는 manytomany 어노테이션과 연결
+    private Book_Categories bookCategories;
 
 }
 

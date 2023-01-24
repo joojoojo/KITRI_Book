@@ -1,6 +1,7 @@
 package Book.book_rental.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
@@ -16,6 +17,8 @@ public class User {
     private Long id;
 
     private String username;
+
+    private String user_email;
 
     @OneToMany(mappedBy = "user_id")
     private List<Applications> applications = new ArrayList<>();
