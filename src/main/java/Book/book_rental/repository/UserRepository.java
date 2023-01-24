@@ -16,8 +16,8 @@ public class UserRepository {
         em.persist(user);
     }
 
-    public User findOne(Long id){
-        return em.find(User.class, id);
+    public User findOne(String email_id){
+        return em.find(User.class, email_id);
     }
 
     public List<User> findAll(){
