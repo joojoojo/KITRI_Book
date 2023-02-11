@@ -1,8 +1,10 @@
 package Book.book_rental.domain;
 
+import Book.book_rental.exception.NotEnoughStockException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.util.Lazy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +30,66 @@ public class Book {
 
     private int booked_count;
 
-    @OneToMany(mappedBy = "book_id", cascade = CascadeType.ALL)
-    private Rental rental;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rental_id")
+    private Rental rentals;
 
-    @ManyToMany(mappedBy = "bookCategoriesList", cascade = CascadeType.ALL) // book_categories에 있는 manytomany 어노테이션과 연결
-    private Book_Categories bookCategories;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "booked_id")
+    private Booked booked;
+
+
+
+    //==비지니스 로직==//
+    /**
+     * stock 증가/감소
+     */
+    public void addStock(int quantity) { // 재고 증가
+        this.stock += quantity;
+    }
+
+    public void removeStock(int quantity) { //재고 감소
+        int restStock = this.stock -quantity;
+        if (restStock < 0){
+            throw new NotEnoughStockException("need more stock"); // 재고가 음수가 될 수 없음
+        }
+        this.stock =- quantity;
+    }
+
+    /**
+     * rented_count 수량
+     */
+    public void addRentCount(){
+        this.rented_count += 1;
+    }
+
+    public void removeRentCount(){
+        this.rented_count -= 1;
+    }
+
+
+    // 책 반납시 수량 적용
+    public void setRented_count(Rental rental){
+        this.rented_count = rental.getBooks().size();
+    }
+
+    // 렌트된 책 개수
+    public void setBooked_count(Booked booked){
+        this.booked_count = booked.getBooks().size();
+    }
+
+    public static Book createBook(Rental rental, Booked booked){
+        Book book = new Book();
+        book.setBook_name(book.Book_name);
+        book.setAuthor(book.author);
+        book.setPublisher(book.publisher);
+        book.setStock(book.stock);
+        book.setRented_count(rental);
+        book.setBooked_count(booked);
+
+        return book;
+    }
+
 
 }
 
