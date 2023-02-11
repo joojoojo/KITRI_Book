@@ -42,5 +42,17 @@ public class UserService {
         return userRepository.findOne(user_id);
     }
 
+    public String checkID(String email, String type) {
+        if(type.equals("user")) {
+            List<User> users = userRepository.findByEmail(email);
+            if (users.isEmpty()) {
+                return "0";
+            }
+            return "1";
+        }
+
+        return "0";
+    }
+
 
 }
