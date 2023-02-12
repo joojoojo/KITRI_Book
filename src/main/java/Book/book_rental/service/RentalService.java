@@ -33,7 +33,7 @@ public class RentalService {
     }
 
     @Transactional
-    public Long rental(Long userId, Long bookId, int stock){
+    public Long rental(Long userId, Long bookId){
         User user = userRepository.findOne(userId);
         Book book = bookRepository.findOne(bookId);
 

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
-    <link rel="stylesheet" type="text/css" href="login.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/login.css">
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
 </head>
 <body>
 <h1>Login</h1>
@@ -22,10 +23,11 @@
             <button type="submit">로그인</button>
         </div>
         <div class="form-group">
-            <button type="button" id="sign-up-button">회원가입</button>
+            <a href="/signup"><button type="button" id="sign-up-button">회원가입</button></a>
         </div>
     </form>
 </div>
-<script src="login.js"></script>
+<script th:src="@{/javascript/login.js}"></script>
+<script src="../../static/login.js"></script>
 </body>
 </html>

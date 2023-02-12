@@ -1,3 +1,4 @@
+<script>
 const form = document.getElementById("signup-form");
 const usernameInput = document.getElementById("username");
 const emailInput = document.getElementById("email");
@@ -25,7 +26,6 @@ form.addEventListener("submit", event => {
   alert(`Sign-up successful!\nUsername: ${username}\nEmail: ${email}`);
 });
 
-<script>
 var $email = $("#email");
 // 아이디 정규식
 		$email.on("keyup", function() { // 키보드에서 손을 땠을 때 실행
@@ -72,7 +72,37 @@ var $email = $("#email");
 						}
 					}
 				})
+
 			}
 		});
-</script>
 
+$(submit).ready(function () {
+  $("#signup-form").submit(function (e) {
+    e.preventDefault();
+    const username = $("#username").val();
+    const email = $("#email").val();
+    const password = $("#password").val();
+    const confirmPassword = $("#confirm-password").val();
+    $.ajax({
+      type: "POST",
+      url: "/signup",
+      data: {
+        username: username,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword
+      },
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+  });
+});
+
+
+
+
+</script>
