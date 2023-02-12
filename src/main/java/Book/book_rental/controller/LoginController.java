@@ -2,6 +2,7 @@ package Book.book_rental.controller;
 
 import Book.book_rental.domain.User;
 import Book.book_rental.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,18 +11,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RestController
+//@RestController
+@Slf4j
 public class LoginController {
     @Autowired
     UserService userService;
 
     @GetMapping("/login")
     public String login(Model model) {
+        log.info("logloglog");
         model.addAttribute("data", "value");
-        return "/login/login";
+        return "login/login";
     }
     @GetMapping("/signup")
     public String signup(Model model) {
+        log.info("signsignsign");
         model.addAttribute("data", "value");
         return "signup/signup";
     }
