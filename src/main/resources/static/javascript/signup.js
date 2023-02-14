@@ -1,4 +1,3 @@
-<script>
 const form = document.getElementById("signup-form");
 const usernameInput = document.getElementById("username");
 const emailInput = document.getElementById("email");
@@ -77,7 +76,7 @@ var $email = $("#email");
 		});
 
 $(submit).ready(function () {
-  $("#signup-form").submit(function (e) {
+  $("#signup-form").click(function (e) {
     e.preventDefault();
     const username = $("#username").val();
     const email = $("#email").val();
@@ -101,8 +100,3 @@ $(submit).ready(function () {
     });
   });
 });
-
-
-
-
-</script>

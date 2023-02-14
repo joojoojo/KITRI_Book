@@ -9,26 +9,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
-//@RestController
+@RestController
 @Slf4j
 public class LoginController {
     @Autowired
     UserService userService;
 
+    //    @GetMapping("/signup")
+//    public String signup(Model model) {
+//        log.info("signsignsign");
+//        model.addAttribute("data", "value");
+//        return "signup/signup";
+//    }
+
     @GetMapping("/login")
-    public String login(Model model) {
-        log.info("logloglog");
-        model.addAttribute("data", "value");
-        return "login/login";
+    public ModelAndView login() {
+        ModelAndView mav = new ModelAndView("login/login");
+        return mav;
     }
+
     @GetMapping("/signup")
-    public String signup(Model model) {
-        log.info("signsignsign");
-        model.addAttribute("data", "value");
-        return "signup/signup";
+    public ModelAndView signup() {
+            ModelAndView mav = new ModelAndView("signup/signup");
+        return mav;
     }
+
     @PostMapping("/login/idcheck")
     public ResponseEntity<String> receiveData(@RequestParam("type") String type, @RequestParam("id") String id) {
         // Do something with the received data
@@ -36,11 +43,11 @@ public class LoginController {
         return ResponseEntity.ok().body("Data received successfully");
     }
 
+//    @PostMapping("/signUp")
+//    public String signUp(User user) {
+//        return "redirect:/login";
+//    }
     @PostMapping("/signUp")
-    public String signUp(User user) {
-        return "redirect:/login";
-    }
-    @PostMapping
     public ResponseEntity<String> signup(@RequestParam("username") String username,
                                          @RequestParam("email") String email,
                                          @RequestParam("password") String password,
@@ -51,8 +58,11 @@ public class LoginController {
         User user = new User();
         user.setUsername(username);
         user.setUser_email(email);
-        //user.setPassword(password);
+        user.setPassword(password);
+        log.info(username);
         userService.join(user);
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
+
+
 }

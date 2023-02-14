@@ -1,5 +1,6 @@
 package Book.book_rental.service;
 
+import Book.book_rental.domain.Rental;
 import Book.book_rental.domain.User;
 import Book.book_rental.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,10 @@ public class UserService {
      * **/
     @Transactional
     public Long join(User user){
+        String userName = user.getUsername();
+        String user_email = user.getUser_email();
+        String userPassword = user.getPassword();
+        user = user.createUser(userName, user_email, userPassword);
         validateDuplicateUser(user); //중복 회원 검증
         userRepository.save(user);
         return user.getId();
@@ -53,6 +58,16 @@ public class UserService {
 
         return "0";
     }
+
+//    @Transactional
+//    public void joinUser(UserVo userVo){
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        userVo.setUserPw(passwordEncoder.encode(userVo.getPassword()));
+//        userVo.setUserAuth("USER");
+//        userVo.setAppendDate(localTime);
+//        userVo.setUpdateDate(localTime);
+//        userMapper.saveUser(userVo);
+//    }
 
 
 }

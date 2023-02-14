@@ -20,6 +20,8 @@ public class User {
 
     private String user_email;
 
+    private String password;
+
     @OneToMany(mappedBy = "user_id")
     private List<Applications> applications = new ArrayList<>();
 
@@ -29,18 +31,21 @@ public class User {
     @OneToMany(mappedBy = "user_id")
     private List<Booked> booked = new ArrayList<>();
 
-    public User createUser(String username, String user_email){
+    public User createUser(String username, String user_email, String password){
         User user = new User();
         user.username = username;
         user.user_email = user_email;
+        user.password = password;
         return user;
     }
 
     public void setUser(){
         this.username = username;
         this.user_email = user_email;
+        this.password = password;
         setUsername(username);
         setUser_email(user_email);
+        setPassword(password);
     }
 
 
