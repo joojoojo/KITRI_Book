@@ -45,10 +45,6 @@ public class LoginController {
     @PostMapping("signup/checkid")
     @ResponseBody
     public int checkid(@RequestParam("id") String id, @RequestParam("type") String type) {
-
-//    System.out.println("ajax 완료 : "+id);
-//    String check = service.checkID(id);
-//    System.out.println("중복검사 : "+a);
         String result = userService.checkID(id, type);
         if(result != null && result.equals("0")){
             return 0;
@@ -58,10 +54,6 @@ public class LoginController {
 
     }
 
-//    @PostMapping("/signUp")
-//    public String signUp(User user) {
-//        return "redirect:/login";
-//    }
     @PostMapping("/signUp/post")
     public ResponseEntity<String> signup(@RequestParam("username") String username,
                                          @RequestParam("email") String email,

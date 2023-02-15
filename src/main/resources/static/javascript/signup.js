@@ -24,15 +24,15 @@ if (password !== confirmPassword) {
   }
 
   $(document).ready(function () {
-      console.log("ready까지 됐다");
+      //console.log("ready까지 됐다");
 //      $("#submit").click(function (e) {
-      console.log("click까지 됐다")
+      //console.log("click까지 됐다")
         //e.preventDefault();
         const username = $("#username").val();
         const email = $("#email").val();
         const password = $("#password").val();
         const confirmPassword = $("#confirm-password").val();
-        console.log("ajax 직전")
+        //console.log("ajax 직전")
         $.ajax({
           type: "POST",
           url: "/signUp/post",
@@ -44,8 +44,10 @@ if (password !== confirmPassword) {
           },
           success: function (response) {
             console.log(response);
+            location.replace("/login")
           },
           error: function (error) {
+            alert("이미 사용중인 아이디입니다.")
             console.log(error);
           }
         });
@@ -61,7 +63,7 @@ if (password !== confirmPassword) {
 var $email = $("#email");
 // 아이디 정규식
 		$email.on("keyup", function() { // 키보드에서 손을 땠을 때 실행
-		console.log("키보드에서 손을 땠을 때 실행")
+		//console.log("키보드에서 손을 땠을 때 실행")
 //			var regExp = /^[a-z]+[a-z0-9]{5,15}$/g;
 			var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
@@ -75,17 +77,9 @@ var $email = $("#email");
 					"font-weight" : "bold",
 					"font-size" : "10px"
 				})
-				console.log("아이디가 정규식 통과 못했다")
-				console.log($email.val())
+				//console.log("아이디가 정규식 통과 못했다")
+				//console.log($email.val())
 			} else { // 공백아니면 중복체크
-			console.log("정규식 통과 / ajax시작")
-			var elements = document.getElementById("emailCheck");
-                            elements.innerHTML = "사용 가능";
-            				$("#emailCheck").css({
-            					"color" : "blue",
-            					"font-weight" : "bold",
-            					"font-size" : "10px"
-            				})
 				$.ajax({
 					type : "POST", // http 방식
 					url : "/signup/checkid", // ajax 통신 url
@@ -123,32 +117,3 @@ var $email = $("#email");
 
 			}
 		});
-
-//$("#signup-form").ready(function () {
-//console.log("ready까지 됐다")
-//  $("#submit").click(function (e) {
-//  console.log("click까지 됐다")
-//    e.preventDefault();
-//    const username = $("#username").val();
-//    const email = $("#email").val();
-//    const password = $("#password").val();
-//    const confirmPassword = $("#confirm-password").val();
-//    console.log("ajax 직전")
-//    $.ajax({
-//      type: "POST",
-//      url: "/signUp/post",
-//      data: {
-//        username: username,
-//        email: email,
-//        password: password,
-//        confirmPassword: confirmPassword
-//      },
-//      success: function (response) {
-//        console.log(response);
-//      },
-//      error: function (error) {
-//        console.log(error);
-//      },
-//    });
-//  });
-//});

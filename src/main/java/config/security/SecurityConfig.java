@@ -21,6 +21,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.token.TokenService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -32,26 +34,28 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @ConditionalOnDefaultWebSecurity
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class SecurityConfig {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        /* @formatter:off */
+        http
+                .authorizeHttpRequests()
+                .requestMatchers("/", "/main", "/login", "/signup").permitAll() // 설정한 리소스의 접근을 인증절차 없이 허용
 
-//    @Autowired
-//    private final UserService userService;
-        @Bean
-        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-            /* @formatter:off */
-            http
-                    .authorizeHttpRequests()
-                    .requestMatchers("/", "/main", "/login", "/signup").permitAll() // 설정한 리소스의 접근을 인증절차 없이 허용
-
-                    .anyRequest().authenticated() // 그 외 모든 리소스를 의미하며 인증 필요
-                    .and()
-                    .formLogin()
-                    .loginPage("/login") // 기본 로그인 페이지
-                    .permitAll()
-                    .and()
-                    .logout()
-                    .permitAll();
+                .anyRequest().authenticated() // 그 외 모든 리소스를 의미하며 인증 필요
+                .and()
+                .formLogin()
+                .loginPage("/login") // 기본 로그인 페이지
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll();
 
             return http.build();
 
         }
+
     }
