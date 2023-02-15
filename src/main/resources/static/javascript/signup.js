@@ -23,11 +23,11 @@ if (password !== confirmPassword) {
     //return;
   }
 
-//  $(document).ready(function () {
-//      console.log("ready까지 됐다");
-      $("#submit").click(function (e) {
+  $(document).ready(function () {
+      console.log("ready까지 됐다");
+//      $("#submit").click(function (e) {
       console.log("click까지 됐다")
-        e.preventDefault();
+        //e.preventDefault();
         const username = $("#username").val();
         const email = $("#email").val();
         const password = $("#password").val();
@@ -49,8 +49,8 @@ if (password !== confirmPassword) {
             console.log(error);
           }
         });
-      });
-//  });
+//      });
+  });
 
 });
 
@@ -69,7 +69,7 @@ var $email = $("#email");
 			if (!regExp.test($email.val())) { // id 가 정규식을 통과하지 못할경우 경우 체크
 				idchk = false;
 				var elements = document.getElementById("emailCheck");
-                elements.innerHTML = "사용할 수 없는 아이디입니다.";
+                elements.innerHTML = "사용할 수 없는 아이디 형식입니다.";
 				$("#emailCheck").css({
 					"color" : "#FA3E3E",
 					"font-weight" : "bold",
@@ -82,7 +82,7 @@ var $email = $("#email");
 			var elements = document.getElementById("emailCheck");
                             elements.innerHTML = "사용 가능";
             				$("#emailCheck").css({
-            					"color" : "0D6EFD",
+            					"color" : "blue",
             					"font-weight" : "bold",
             					"font-size" : "10px"
             				})
@@ -90,31 +90,32 @@ var $email = $("#email");
 					type : "POST", // http 방식
 					url : "/signup/checkid", // ajax 통신 url
 					data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
-						"type" : "email",
-						"id" : $email.val()
+						"id" : $email.val(),
+						"type" : "email"
 					},
-					success : function(data) {
-						if (data == 1) { // 1이면 중복
+					success : function(response) {
+						if (response === 1) { // 1이면 중복
+						    console.log(response)
 							idchk = false;
 							var elements = document.getElementById("emailCheck");
-                            elements.innerHTML = "사용 가능";
-							$("#check").css({
+                            elements.innerHTML = "이미 사용중인 아이디입니다.";
+							$("#emailCheck").css({
 								"color" : "#FA3E3E",
 								"font-weight" : "bold",
 								"font-size" : "10px"
-
 							})
 							//console.log("중복아이디");
 						} else { // 아니면 중복아님
+						console.log(response)
 							idchk = true;
-							$email.html("<span id='check'>사용가능한 아이디입니다</span>")
+							var elements = document.getElementById("emailCheck");
+                            elements.innerHTML = "사용 가능한 아이디입니다.";
+                            $("#emailCheck").css({
+                                "color" : "blue",
+                                "font-weight" : "bold",
+                                "font-size" : "10px"
 
-							$("#check").css({
-								"color" : "#0D6EFD",
-								"font-weight" : "bold",
-								"font-size" : "10px"
-
-							})
+                            							})
 							//console.log("중복아닌 아이디");
 						}
 					}

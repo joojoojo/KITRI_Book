@@ -48,7 +48,7 @@ public class UserService {
     }
 
     public String checkID(String email, String type) {
-        if(type.equals("user")) {
+        if(type.equals("email")) {
             List<User> users = userRepository.findByEmail(email);
             if (users.isEmpty()) {
                 return "0";

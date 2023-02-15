@@ -36,11 +36,26 @@ public class LoginController {
         return mav;
     }
 
-    @PostMapping("/signup/checkid")
-    public ResponseEntity<String> receiveData(@RequestParam("type") String type, @RequestParam("id") String id) {
-        // Do something with the received data
-        System.out.println("Type: " + type + " , ID: " + id);
-        return ResponseEntity.ok().body("Data received successfully");
+//    @PostMapping("/signup/checkid")
+//    public ResponseEntity<String> receiveData(@RequestParam("type") String type, @RequestParam("id") String id) {
+//        // Do something with the received data
+//        System.out.println("Type: " + type + " , ID: " + id);
+//        return ResponseEntity.ok().body("Data received successfully");
+//    }
+    @PostMapping("signup/checkid")
+    @ResponseBody
+    public int checkid(@RequestParam("id") String id, @RequestParam("type") String type) {
+
+//    System.out.println("ajax 완료 : "+id);
+//    String check = service.checkID(id);
+//    System.out.println("중복검사 : "+a);
+        String result = userService.checkID(id, type);
+        if(result != null && result.equals("0")){
+            return 0;
+        } else{
+            return 1;
+        }
+
     }
 
 //    @PostMapping("/signUp")
