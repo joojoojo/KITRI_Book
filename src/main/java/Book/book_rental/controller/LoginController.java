@@ -36,7 +36,7 @@ public class LoginController {
         return mav;
     }
 
-    @PostMapping("/login/idcheck")
+    @PostMapping("/signup/checkid")
     public ResponseEntity<String> receiveData(@RequestParam("type") String type, @RequestParam("id") String id) {
         // Do something with the received data
         System.out.println("Type: " + type + " , ID: " + id);
@@ -47,7 +47,7 @@ public class LoginController {
 //    public String signUp(User user) {
 //        return "redirect:/login";
 //    }
-    @PostMapping("/signUp")
+    @PostMapping("/signUp/post")
     public ResponseEntity<String> signup(@RequestParam("username") String username,
                                          @RequestParam("email") String email,
                                          @RequestParam("password") String password,
