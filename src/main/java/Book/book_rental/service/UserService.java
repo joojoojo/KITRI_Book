@@ -7,6 +7,7 @@ import Book.book_rental.repository.UserRepository;
 import jdk.jshell.spi.ExecutionControl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +19,11 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true) //트랜잭션 안에서 데이터 변경이 일어날 수 있도록
 @RequiredArgsConstructor
+
 public class UserService {
     private final UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
     /**
      * 회원가입
      * **/
@@ -29,8 +32,8 @@ public class UserService {
     public Long join(User user){
         String userName = user.getUsername();
         String user_email = user.getUser_email();
-        String userPassword = user.getPassword();
-//        String userPassword = passwordEncoder.encode(user.getPassword());
+//        String userPassword = user.getPassword();
+        String userPassword = passwordEncoder.encode(user.getPassword());
         user = user.createUser(userName, user_email, userPassword);
         validateDuplicateUser(user); //중복 회원 검증
         userRepository.save(user);

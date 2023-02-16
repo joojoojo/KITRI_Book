@@ -1,12 +1,8 @@
 package Book.book_rental.domain;
 
-import config.security.SecurityConfig;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package config.security;
+package Book.book_rental;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

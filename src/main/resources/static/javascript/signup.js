@@ -32,6 +32,7 @@ if (password !== confirmPassword) {
         const email = $("#email").val();
         const password = $("#password").val();
         const confirmPassword = $("#confirm-password").val();
+
         //console.log("ajax 직전")
         $.ajax({
           type: "POST",
@@ -47,7 +48,10 @@ if (password !== confirmPassword) {
             location.replace("/login")
           },
           error: function (error) {
-            alert("이미 사용중인 아이디입니다.")
+             $('#submit').addClass('shake'); // 버튼에 shake 클래스 추가
+                    setTimeout(function() {
+                      $('#submit').removeClass('shake'); // 0.8초 후 shake 클래스 제거
+                    }, 800);
             console.log(error);
           }
         });
@@ -98,7 +102,7 @@ var $email = $("#email");
 								"font-weight" : "bold",
 								"font-size" : "10px"
 							})
-							//console.log("중복아이디");
+//							console.log("중복아이디");
 						} else { // 아니면 중복아님
 						console.log(response)
 							idchk = true;
