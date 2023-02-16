@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -28,18 +29,24 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         /* @formatter:off */
         http
-                .csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/", "/main", "/login", "/signup", "/css/**", "/javascript/**", "/img/**").permitAll() // 설정한 리소스의 접근을 인증절차 없이 허용
+//                .csrf()
+//                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .cors().disable()        //cors방지
+                .csrf().disable()        //csrf방지
+                .headers().frameOptions().disable();
+//                .authorizeHttpRequests()
+//                .requestMatchers("/", "/main", "/login", "/signup", "/css/**", "/javascript/**", "/img/**").permitAll() // 설정한 리소스의 접근을 인증절차 없이 허용
+//
+//                //.anyRequest().authenticated() // 그 외 모든 리소스를 의미하며 인증 필요
+//                .and()
+//                .formLogin()
+//                .loginPage("/login") // 기본 로그인 페이지
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll();
 
-                //.anyRequest().authenticated() // 그 외 모든 리소스를 의미하며 인증 필요
-                .and()
-                .formLogin()
-                .loginPage("/login") // 기본 로그인 페이지
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
+
 
 
             return http.build();

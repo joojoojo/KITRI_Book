@@ -7,13 +7,15 @@
     <link th:href="@{/css/signup.css}" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!--    <script src="jquery-3.6.0.min.js"></script>-->
-
+<!--    <meta name="_csrf" content="${_csrf.token}">-->
+<!--    <meta name="_csrf_header" content="${_csrf.headerName}">-->
 
 
 </head>
 <body>
 <h1>Sign Up</h1>
 <form id="signup-form">
+<!--    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">-->
     <div>
         <label for="username">이름</label>
         <input type="text" id="username" name="username" placeholder="홍길동" autocomplete="new-username">

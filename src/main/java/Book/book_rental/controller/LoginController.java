@@ -66,6 +66,7 @@ public class LoginController {
         user.setUsername(username);
         user.setUser_email(email);
         user.setPassword(password);
+        System.out.println(username);
         log.info(username);
         userService.join(user);
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);

@@ -32,7 +32,7 @@ public class UserService {
     public Long join(User user){
         String userName = user.getUsername();
         String user_email = user.getUser_email();
-//        String userPassword = user.getPassword();
+     //   String userPassword = user.getPassword();
         String userPassword = passwordEncoder.encode(user.getPassword());
         user = user.createUser(userName, user_email, userPassword);
         validateDuplicateUser(user); //중복 회원 검증
