@@ -1,9 +1,18 @@
 package Book.book_rental.controller;
 
+import Book.book_rental.SessionManager;
+import Book.book_rental.UserInfo;
 import Book.book_rental.domain.User;
+import Book.book_rental.repository.UserRepository;
 import Book.book_rental.service.UserService;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.sql.ast.spi.AbstractSqlAstTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,9 +22,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @Slf4j
+@SessionAttributes("user")
+
 public class LoginController {
     @Autowired
     UserService userService;
+    @Autowired
+    SessionManager sessionManager;
+
+    @Autowired
+    UserRepository userRepository;
+    @Resource
+    private UserInfo userInfo;
+
 
     //    @GetMapping("/signup")
 //    public String signup(Model model) {
@@ -70,6 +89,22 @@ public class LoginController {
         log.info(username);
         userService.join(user);
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
+    }
+
+    @PostMapping("/login/post")
+    public ResponseEntity<String> login( @RequestParam("email") String email,
+                                         @RequestParam("password") String password) {
+
+        User user = userService.login(email, password);
+        if(user != null && user.getUser_email().equals(email)){
+
+            userInfo.setUserId(user.getId());
+            userInfo.setUserNm(user.getUsername());
+
+            return new ResponseEntity<>("Successfully Login", HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>("Login failed", HttpStatus.BAD_REQUEST);
+        }
     }
 
 
