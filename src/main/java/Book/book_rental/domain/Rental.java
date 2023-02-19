@@ -28,9 +28,9 @@ public class Rental {
     @JoinColumn(name = "user_id")
     private User user_id;
 
-    @OneToMany(fetch = LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "book_id")
-    private List<Book> books = new ArrayList<>();
+    private Book book_id;
 
     private LocalDateTime rental_date;
 
@@ -51,19 +51,19 @@ public class Rental {
     }
 
     // 렌탈 한 책 리스트 books에 book 추가
-    public void addBook(Book book) {
-        books.add(book);
-        book.setRentals(this);
-    }
+//    public void addBook(Book book) {
+//        books.add(book);
+//        book.setRentals(this);
+//    }
 
 
     //==생성 메서드==//
-    public static Rental createRental(User user, Book... books) {
+    public static Rental createRental(User user) {
         Rental rental = new Rental();
         rental.setUser(user);
-        for (Book book : books) {
-            rental.addBook(book);
-        }
+//        for (Book book : books) {
+//            rental.addBook(book);
+//        }
         rental.setRental_date(LocalDateTime.now());
         rental.setRental_due(rental.rental_date.plusDays(15));
         rental.setStatus(RentalStatus.RENTALED);
@@ -75,20 +75,19 @@ public class Rental {
     //orderDate는 주문이 생성되는 시점의 시간으로 고정되기 때문에 인자로 받지 않는 것입니다.
 
     //==비지니스 로직==//
-    public void removeReturn(){
-        for (Book book : books){
-            this.books.remove(book);
-        }
+//    public void removeReturn(){
+//        for (Book book : books){
+//            this.books.remove(book);
+//        }
+//    }
+
+//    public void returned(){
+//        if (this.status == RentalStatus.RETURN){
+//            this.removeReturn();
+//        }
     }
 
-    public void returned(){
-        if (this.status == RentalStatus.RETURN){
-            this.removeReturn();
-        }
-    }
 
 
 
 
-
-}

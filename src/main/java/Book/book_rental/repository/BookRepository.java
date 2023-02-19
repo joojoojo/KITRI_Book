@@ -27,7 +27,7 @@ public class BookRepository {
     }
 
     public List<Book> findAll(){
-        return em.createQuery("select b from book b", Book.class).getResultList();
+        return em.createQuery("select b from Book b", Book.class).getResultList();
     }
 
 

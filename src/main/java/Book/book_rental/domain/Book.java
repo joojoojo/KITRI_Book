@@ -30,13 +30,11 @@ public class Book {
 
     private int booked_count;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rental_id")
-    private Rental rentals;
+    @OneToMany(mappedBy = "book_id")
+    private List<Rental> rentals = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "booked_id")
-    private Booked booked;
+    @OneToMany(mappedBy = "book_id")
+    private List<Booked> booked = new ArrayList<>();
 
 
 
@@ -69,14 +67,14 @@ public class Book {
 
 
     // 책 반납시 수량 적용
-    public void setRented_count(Rental rental){
-        this.rented_count = rental.getBooks().size();
-    }
+//    public void setRented_count(Rental rental){
+//        this.rented_count = rental.getBooks().size();
+//    }
 
     // 렌트된 책 개수
-    public void setBooked_count(Booked booked){
-        this.booked_count = booked.getBooks().size();
-    }
+//    public void setBooked_count(Booked booked){
+//        this.booked_count = booked.getBooks().size();
+//    }
 
     public static Book createBook(Rental rental, Booked booked){
         Book book = new Book();
@@ -84,8 +82,8 @@ public class Book {
         book.setAuthor(book.author);
         book.setPublisher(book.publisher);
         book.setStock(book.stock);
-        book.setRented_count(rental);
-        book.setBooked_count(booked);
+//        book.setRented_count(rental);
+//        book.setBooked_count(booked);
 
         return book;
     }

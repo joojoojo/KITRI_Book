@@ -91,20 +91,25 @@ public class LoginController {
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
 
-    @PostMapping("/login/post")
-    public ResponseEntity<String> login( @RequestParam("email") String email,
-                                         @RequestParam("password") String password) {
+@PostMapping("/login/post")
+public ResponseEntity<String> login( @RequestParam("email") String email,
+                                     @RequestParam("password") String password,
+                                     HttpSession session) {
 
-        User user = userService.login(email, password);
-        if(user != null && user.getUser_email().equals(email)){
+    User user = userService.login(email, password);
+    if(user != null && user.getUser_email().equals(email)){
 
-            userInfo.setUserId(user.getId());
-            userInfo.setUserNm(user.getUsername());
+        session.setAttribute("userName", user.getUsername());
 
-            return new ResponseEntity<>("Successfully Login", HttpStatus.OK);
-        } else{
-            return new ResponseEntity<>("Login failed", HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>("Successfully Login", HttpStatus.OK);
+    } else{
+        return new ResponseEntity<>("Login failed", HttpStatus.BAD_REQUEST);
+    }
+}
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // 현재 세션 무효화
+        return "redirect:/main"; // 로그아웃 후 홈으로 이동
     }
 
 

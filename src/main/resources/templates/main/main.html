@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>My Library</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<header>
+    <div class="left-section">
+        <a href="/main">KITRI</a>
+    </div>
+    <div class="right-section">
+        <div class="username">사용자 이름 ▼</div>
+        <button class="logout">로그아웃</button>
+    </div>
+</header>
+<main>
+    <div class="search">
+        <input type="text" placeholder="도서를 검색하세요">
+        <button>검색</button>
+    </div>
+    <div class="book-list">
+
+        <!-- 도서가 많아질 경우, book 클래스를 가진 div를 반복해서 작성 -->
+        <div class="book" th:each="book : ${books}">
+            <img th:src="@{book1.jpg}">
+            <div class="book-info">
+                <div class = "book-title" th:text="${book.book_name}"></div>
+                <div class = "book-author" th:text="'작가: ' + ${book.author}"></div>
+                <div class = "book-publisher" th:text="'출판사: ' + ${book.publisher}"></div>
+                <button class="rent">대여</button>
+                <button class="reserve">예약</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+</body>
+</html>

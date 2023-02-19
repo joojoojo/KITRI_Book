@@ -24,13 +24,13 @@ public class RentalService {
 
     //도서 반납
 
-    @Transactional
-    public void findReturned(Long RentalId){ // 컨트롤러에서 사용 에
-        // Rental 엔티티 조회
-        Rental rental  = rentalRepository.findOne(RentalId);
-        // 도서 반납
-        rental.returned();
-    }
+//    @Transactional
+//    public void findReturned(Long RentalId){ // 컨트롤러에서 사용 에
+//        // Rental 엔티티 조회
+//        Rental rental  = rentalRepository.findOne(RentalId);
+//        // 도서 반납
+//        rental.returned();
+//    }
 
     @Transactional
     public Long rental(Long userId, Long bookId){
@@ -38,7 +38,7 @@ public class RentalService {
         Book book = bookRepository.findOne(bookId);
 
         //대여 생성
-        Rental rental = Rental.createRental(user, book);
+        Rental rental = Rental.createRental(user);
 
         //대여 저장
         rentalRepository.save(rental);

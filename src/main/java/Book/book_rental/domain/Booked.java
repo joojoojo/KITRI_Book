@@ -30,9 +30,9 @@ public class Booked {
     private User user_id;
 
 
-    @OneToMany(fetch = LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "book_id")
-    private List<Book> books = new ArrayList<>();
+    private Book book_id;
 
     public void alreadyBooked() {
         throw new IllegalStateException("도서를 예약한 사람이 있습니다.");
@@ -45,18 +45,18 @@ public class Booked {
     }
 
     // 대여 한 책 리스트 booked에 book 추가
-    public void addBook(Book book) {
-        books.add(book);
-        book.setBooked(this);
-    }
+//    public void addBook(Book book) {
+//        books.add(book);
+//        book.setBooked(this);
+//    }
 
     //==생성 메서드==//
     public static Booked createBooked(User user, Book... books) {
         Booked booked = new Booked();
         booked.setUser(user);
-        for (Book book : books) {
-            booked.addBook(book);
-        }
+//        for (Book book : books) {
+//            booked.addBook(book);
+//        }
 
         return booked;
     }
