@@ -107,9 +107,10 @@ public ResponseEntity<String> login( @RequestParam("email") String email,
     }
 }
     @PostMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate(); // 현재 세션 무효화
-        return "redirect:/main"; // 로그아웃 후 홈으로 이동
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/login";
     }
 
 

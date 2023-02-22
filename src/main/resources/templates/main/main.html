@@ -12,8 +12,12 @@
         <a href="/main">KITRI</a>
     </div>
     <div class="right-section">
-        <div class="username">사용자 이름 ▼</div>
-        <button class="logout">로그아웃</button>
+        <div class="username">
+            <span th:if="${userName != null}" th:text="${userName + '님 ▼'}"></span>
+            <span th:if="${userName == null}">안녕하세요</span></div>
+        <button class="logout" th:if="${userName != null}">로그아웃</button>
+        <a class = "login_togo" href = "/login"><button class="login" th:if="${userName == null}">로그인</button></a>
+
     </div>
 </header>
 <main>
@@ -37,5 +41,6 @@
 
     </div>
 </main>
+<script th:src="@{/javascript/main.js}"></script>
 </body>
 </html>
